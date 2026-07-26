@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ضـرب بلاغـات واتـسـاب</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 450px;
+            width: 100%;
+            background: #111b21;
+            border-radius: 30px;
+            padding: 35px 30px 40px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 168, 132, 0.1);
+            border: 1px solid #1f2c33;
+            text-align: center;
+        }
+
+        /* ---------- العنوان + الأيقونة ---------- */
+        .header-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .glitch-text {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #00a884;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(0, 168, 132, 0.4);
+            animation: glowPulse 2s infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 15px rgba(0, 168, 132, 0.3); }
+            100% { text-shadow: 0 0 40px rgba(0, 168, 132, 0.8), 0 0 80px rgba(0, 168, 132, 0.4); }
+        }
+
+        .whatsapp-icon {
+            font-size: 2.8rem;
+            color: #25d366;
+            text-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
+            animation: glowPulseIcon 2s infinite alternate;
+        }
+
+        @keyframes glowPulseIcon {
+            0% { filter: drop-shadow(0 0 8px rgba(37, 211, 102, 0.3)); }
+            100% { filter: drop-shadow(0 0 30px rgba(37, 211, 102, 0.7)); }
+        }
+
+        /* ---------- حقل الإدخال ---------- */
+        .input-section {
+            text-align: center;
+            margin: 20px 0 25px;
+        }
+
+        .input-section .sub-text {
+            font-size: 0.95rem;
+            color: #8696a0;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .input-section .sub-text a {
+            color: #00a884;
+            text-decoration: none;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 168, 132, 0.3);
+        }
+
+        .input-section .sub-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* اختيار الدولة - القائمة المنسدلة */
+        .country-selector {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1f2c33;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .country-selector:hover {
+            background: #2a3942;
+            border-color: #00a88444;
+        }
+
+        .country-selector:focus-within {
+            border-color: #00a884;
+            box-shadow: 0 0 20px rgba(0, 168, 132, 0.2);
+        }
+
+        .country-selector .country-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .country-selector .country-info span {
+            font-size: 1rem;
+            color: #e9edef;
+            font-weight: 500;
+        }
+
+        .country-selector .country-info i {
+            color: #8696a0;
+            font-size: 0.9rem;
+        }
+
+        .country-selector .country-code-display {
+            color: #8696a0;
+            font-size: 1rem;
+            font-weight: 500;
+            pointer-events: none;
+        }
+
+        /* القائمة المنسدلة للدول */
+        .country-dropdown {
+            display: none;
+            position: absolute;
+            top: 110%;
+            left: 0;
+            right: 0;
+            background: #1f2c33;
+            border: 1px solid #3b4a54;
+            border-radius: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            padding: 8px 0;
+        }
+
+        .country-dropdown.show {
+            display: block;
+        }
+
+        .country-dropdown::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .country-dropdown::-webkit-scrollbar-track {
+            background: #1f2c33;
+        }
+
+        .country-dropdown::-webkit-scrollbar-thumb {
+            background: #00a884;
+            border-radius: 10px;
+        }
+
+        .country-dropdown .country-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #e9edef;
+            font-size: 0.95rem;
+        }
+
+        .country-dropdown .country-item:hover {
+            background: #2a3942;
+            color: #00a884;
+        }
+
+        .country-dropdown .country-item .flag {
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        .country-dropdown .country-item .cname {
+            flex: 1;
+            text-align: left;
+        }
+
+        .country-dropdown .country-item .ccode {
+            color: #8696a0;
+            font-weight: 600;
+        }
+
+        .phone-input {
+            display: flex;
+            align-items: center;
+            background: #1f2c33;
+            border-radius: 12px;
+            padding: 4px 16px;
+            border: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .phone-input:focus-within {
+            border-color: #00a884;
+            background: #2a3942;
+            box-shadow: 0 0 20px rgba(0, 168, 132, 0.2);
+        }
+
+        .phone-input .code-prefix {
+            color: #e9edef;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 12px 8px 12px 0;
+            border-right: 1px solid #3b4a54;
+            margin-right: 12px;
+            min-width: 50px;
+            text-align: left;
+        }
+
+        .phone-input input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 14px 0;
+            font-size: 1.1rem;
+            color: #e9edef;
+            outline: none;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .phone-input input::placeholder {
+            color: #667781;
+            font-weight: 400;
+        }
+
+        /* زر الإبلاغ */
+        .next-btn {
+            background: #00a884;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 14px 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: 0.3s;
+            width: 100%;
+            max-width: 200px;
+            box-shadow: 0 4px 20px rgba(0, 168, 132, 0.4);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .next-btn:hover {
+            background: #008f72;
+            transform: scale(1.03);
+            box-shadow: 0 6px 35px rgba(0, 168, 132, 0.6);
+        }
+
+        .next-btn:active {
+            transform: scale(0.97);
+        }
+
+        .next-btn.running {
+            animation: btnPulse 0.8s infinite alternate;
+        }
+
+        @keyframes btnPulse {
+            0% { box-shadow: 0 4px 20px rgba(0, 168, 132, 0.4); }
+            100% { box-shadow: 0 4px 50px rgba(0, 255, 136, 0.8), 0 0 80px rgba(0, 255, 136, 0.4); }
+        }
+
+        /* ---------- لوحة الإحصائيات (عمودية) ---------- */
+        .stats-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid #1f2c33;
+        }
+
+        .stat-card {
+            background: #1f2c33;
+            border-radius: 16px;
+            padding: 18px 20px;
+            transition: 0.3s;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 0 10px rgba(0, 168, 132, 0.05);
+        }
+
+        .stat-card:hover {
+            background: #2a3942;
+            border-color: #00a88466;
+        }
+
+        .stat-card.glowing {
+            border-color: #00ff88;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4), 0 0 60px rgba(0, 255, 136, 0.2);
+            animation: cardGlow 1.5s infinite alternate;
+        }
+
+        @keyframes cardGlow {
+            0% { border-color: #00ff88; box-shadow: 0 0 20px rgba(0, 255, 136, 0.3); }
+            100% { border-color: #66ffbb; box-shadow: 0 0 50px rgba(0, 255, 136, 0.7), 0 0 100px rgba(0, 255, 136, 0.3); }
+        }
+
+        .stat-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: #00a884;
+            text-shadow: 0 0 20px rgba(0, 168, 132, 0.3);
+            animation: hologramPulse 2s infinite alternate;
+            min-width: 40px;
+        }
+
+        @keyframes hologramPulse {
+            0% { opacity: 0.7; transform: scale(0.95); filter: blur(0.5px); }
+            100% { opacity: 1; transform: scale(1.05); filter: blur(0px); text-shadow: 0 0 30px rgba(0, 255, 136, 0.6); }
+        }
+
+        .stat-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #8696a0;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #00ff88;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.4), 0 0 60px rgba(0, 255, 136, 0.2);
+            transition: 0.2s;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .stat-number.pop {
+            transform: scale(1.2);
+            color: #66ffbb;
+            text-shadow: 0 0 50px rgba(0, 255, 136, 0.8), 0 0 100px rgba(0, 255, 136, 0.4);
+        }
+
+        /* رسالة الحالة */
+        .status-msg {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #8696a0;
+            min-height: 24px;
+            transition: 0.3s;
+        }
+
+        .status-msg.success {
+            color: #00ff88;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .status-msg.error {
+            color: #ff6b6b;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .status-msg.running {
+            color: #00ff88;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+            animation: statusBlink 0.8s infinite alternate;
+        }
+
+        @keyframes statusBlink {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* فوتر واتساب */
+        .whatsapp-footer {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #1f2c33;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .whatsapp-footer a {
+            color: #8696a0;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .whatsapp-footer a:hover {
+            color: #00a884;
+            text-shadow: 0 0 15px rgba(0, 168, 132, 0.3);
+        }
+
+        .whatsapp-footer i {
+            margin-right: 5px;
+            color: #00a884;
+        }
+
+        .reset-btn {
+            background: transparent;
+            color: #8696a0;
+            border: 1px solid #1f2c33;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .reset-btn:hover {
+            color: #ff6b6b;
+            border-color: #ff6b6b44;
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.1);
+        }
+
+        @media (max-width: 500px) {
+            .container { padding: 25px 18px; }
+            .glitch-text { font-size: 1.7rem; }
+            .whatsapp-icon { font-size: 2.2rem; }
+            .next-btn { max-width: 100%; }
+            .stat-number { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- العنوان + الأيقونة -->
+        <div class="header-group">
+            <span class="glitch-text">ضـرب بلاغـات واتـسـاب</span>
+            <i class="fab fa-whatsapp whatsapp-icon"></i>
+        </div>
+
+        <!-- حقل الإدخال -->
+        <div class="input-section">
+            <div class="sub-text">
+                سيحتاج واتساب إلى مراجعة حالة حساب واتساب المخالف.
+                <a href="#">ما هو رقمي؟</a>
+            </div>
+
+            <!-- اختيار الدولة مع القائمة المنسدلة -->
+            <div class="country-selector" id="countrySelector">
+                <div class="country-info">
+                    <span id="selectedFlag">🇪🇬</span>
+                    <span id="selectedCountry">مصر</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <span class="country-code-display" id="selectedCodeDisplay">+20</span>
+
+                <!-- القائمة المنسدلة -->
+                <div class="country-dropdown" id="countryDropdown">
+                    <!-- سيتم ملؤها بواسطة JavaScript -->
+                </div>
+            </div>
+
+            <div class="phone-input">
+                <span class="code-prefix" id="codePrefix">+20</span>
+                <input type="tel" id="phoneInput" placeholder="رقم الهاتف" value="555123456">
+            </div>
+
+            <button class="next-btn" id="fireBtn">ضـرب بلاغـات</button>
+
+            <div class="status-msg" id="statusMsg">جاهز للإبلاغ</div>
+        </div>
+
+        <!-- لوحة الإحصائيات (عمودية) -->
+        <div class="stats-panel">
+            <div class="stat-card" id="sentCard">
+                <div class="stat-left">
+                    <i class="fas fa-paper-plane"></i>
+                    <span class="stat-title">مرسلة</span>
+                </div>
+                <span class="stat-number" id="sentCount">0</span>
+            </div>
+            <div class="stat-card" id="failedCard">
+                <div class="stat-left">
+                    <i class="fas fa-times-circle"></i>
+                    <span class="stat-title">فاشلة</span>
+                </div>
+                <span class="stat-number" id="failedCount">0</span>
+            </div>
+            <div class="stat-card" id="totalCard">
+                <div class="stat-left">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="stat-title">إجمالي</span>
+                </div>
+                <span class="stat-number" id="totalCount">0</span>
+            </div>
+        </div>
+
+        <!-- زر إعادة الضبط -->
+        <button class="reset-btn" id="resetBtn"><i class="fas fa-redo"></i> إعادة ضبط الإحصائيات</button>
+
+        <!-- فوتر واتساب -->
+        <div class="whatsapp-footer">
+            <a href="#"><i class="fas fa-lock"></i> مشفر</a>
+            <a href="#"><i class="fas fa-question-circle"></i> مساعدة</a>
+            <a href="#"><i class="fas fa-shield-alt"></i> خصوصية</a>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // بيانات الدول
+            const countries = [
+                { flag: '🇪🇬', name: 'مصر', code: '+20' },
+                { flag: '🇸🇦', name: 'السعودية', code: '+966' },
+                { flag: '🇦🇪', name: 'الإمارات', code: '+971' },
+                { flag: '🇯🇴', name: 'الأردن', code: '+962' },
+                { flag: '🇱🇧', name: 'لبنان', code: '+961' },
+                { flag: '🇮🇶', name: 'العراق', code: '+964' },
+                { flag: '🇸🇾', name: 'سوريا', code: '+963' },
+                { flag: '🇵🇸', name: 'فلسطين', code: '+970' },
+                { flag: '🇰🇼', name: 'الكويت', code: '+965' },
+                { flag: '🇶🇦', name: 'قطر', code: '+974' },
+                { flag: '🇧🇭', name: 'البحرين', code: '+973' },
+                { flag: '🇴🇲', name: 'عمان', code: '+968' },
+                { flag: '🇾🇪', name: 'اليمن', code: '+967' },
+                { flag: '🇹🇳', name: 'تونس', code: '+216' },
+                { flag: '🇩🇿', name: 'الجزائر', code: '+213' },
+                { flag: '🇲🇦', name: 'المغرب', code: '+212' },
+                { flag: '🇱🇾', name: 'ليبيا', code: '+218' },
+                { flag: '🇸🇩', name: 'السودان', code: '+249' },
+                { flag: '🇹🇷', name: 'تركيا', code: '+90' },
+                { flag: '🇺🇸', name: 'الولايات المتحدة', code: '+1' },
+                { flag: '🇬🇧', name: 'المملكة المتحدة', code: '+44' },
+                { flag: '🇫🇷', name: 'فرنسا', code: '+33' },
+                { flag: '🇩🇪', name: 'ألمانيا', code: '+49' },
+                { flag: '🇮🇹', name: 'إيطاليا', code: '+39' },
+                { flag: '🇪🇸', name: 'إسبانيا', code: '+34' },
+                { flag: '🇷🇺', name: 'روسيا', code: '+7' },
+                { flag: '🇨🇳', name: 'الصين', code: '+86' },
+                { flag: '🇯🇵', name: 'اليابان', code: '+81' },
+                { flag: '🇮🇳', name: 'الهند', code: '+91' },
+                { flag: '🇧🇷', name: 'البرازيل', code: '+55' },
+                { flag: '🇦🇷', name: 'الأرجنتين', code: '+54' },
+                { flag: '🇿🇦', name: 'جنوب أفريقيا', code: '+27' },
+                { flag: '🇦🇺', name: 'أستراليا', code: '+61' },
+                { flag: '🇨🇦', name: 'كندا', code: '+1' }
+            ];
+
+            // عناصر DOM
+            const countrySelector = document.getElementById('countrySelector');
+            const countryDropdown = document.getElementById('countryDropdown');
+            const selectedFlag = document.getElementById('selectedFlag');
+            const selectedCountry = document.getElementById('selectedCountry');
+            const selectedCodeDisplay = document.getElementById('selectedCodeDisplay');
+            const codePrefix = document.getElementById('codePrefix');
+
+            let currentCountry = countries[0];
+
+            function buildDropdown() {
+                countryDropdown.innerHTML = '';
+                countries.forEach((country) => {
+                    const item = document.createElement('div');
+                    item.className = 'country-item';
+                    item.innerHTML = `
+                        <span class="flag">${country.flag}</span>
+                        <span class="cname">${country.name}</span>
+                        <span class="ccode">${country.code}</span>
+                    `;
+                    item.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        selectCountry(country);
+                        closeDropdown();
+                    });
+                    countryDropdown.appendChild(item);
+                });
+            }
+
+            function selectCountry(country) {
+                currentCountry = country;
+                selectedFlag.textContent = country.flag;
+                selectedCountry.textContent = country.name;
+                selectedCodeDisplay.textContent = country.code;
+                codePrefix.textContent = country.code;
+                closeDropdown();
+            }
+
+            function toggleDropdown() {
+                countryDropdown.classList.toggle('show');
+            }
+
+            function closeDropdown() {
+                countryDropdown.classList.remove('show');
+            }
+
+            countrySelector.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleDropdown();
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!countrySelector.contains(e.target)) {
+                    closeDropdown();
+                }
+            });
+
+            buildDropdown();
+            selectCountry(countries[0]);
+
+            // ========== نظام الإحصائيات ==========
+            const sentEl = document.getElementById('sentCount');
+            const failedEl = document.getElementById('failedCount');
+            const totalEl = document.getElementById('totalCount');
+            const sentCard = document.getElementById('sentCard');
+            const failedCard = document.getElementById('failedCard');
+            const totalCard = document.getElementById('totalCard');
+            const fireBtn = document.getElementById('fireBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const statusMsg = document.getElementById('statusMsg');
+            const phoneInput = document.getElementById('phoneInput');
+
+            let sent = 0;
+            let failed = 0;
+            let total = 0;
+            let isRunning = false;
+            let intervalId = null;
+
+            function updateStats() {
+                sentEl.textContent = sent;
+                failedEl.textContent = failed;
+                totalEl.textContent = total;
+            }
+
+            function animateNumber(el, card) {
+                el.classList.add('pop');
+                card.classList.add('glowing');
+                setTimeout(() => {
+                    el.classList.remove('pop');
+                }, 400);
+                setTimeout(() => {
+                    card.classList.remove('glowing');
+                }, 1500);
+            }
+
+            function sendBatch() {
+                const phone = phoneInput.value.trim();
+                if (!phone || phone.length < 6) {
+                    statusMsg.textContent = '⚠️ يرجى إدخال رقم هاتف صحيح';
+                    statusMsg.className = 'status-msg error';
+                    return;
+                }
+
+                const batch = Math.floor(Math.random() * 6) + 2;
+                let successCount = 0;
+                let failCount = 0;
+
+                for (let i = 0; i < batch; i++) {
+                    if (Math.random() < 0.7) successCount++;
+                    else failCount++;
+                }
+
+                sent += successCount;
+                failed += failCount;
+                total += batch;
+
+                updateStats();
+                animateNumber(sentEl, sentCard);
+                animateNumber(failedEl, failedCard);
+                animateNumber(totalEl, totalCard);
+
+                statusMsg.textContent = `✅ تم إرسال ${successCount} بلاغ، فشل ${failCount}`;
+                statusMsg.className = 'status-msg success';
+
+                setTimeout(() => {
+                    if (isRunning) {
+                        statusMsg.textContent = '🔄 جاري الإبلاغ...';
+                        statusMsg.className = 'status-msg running';
+                    } else {
+                        statusMsg.className = 'status-msg';
+                        statusMsg.textContent = 'جاهز للإبلاغ';
+                    }
+                }, 1500);
+            }
+
+            function startAutoSend() {
+                if (isRunning) return;
+                const phone = phoneInput.value.trim();
+                if (!phone || phone.length < 6) {
+                    statusMsg.textContent = '⚠️ يرجى إدخال رقم هاتف صحيح';
+                    statusMsg.className = 'status-msg error';
+                    return;
+                }
+                isRunning = true;
+                fireBtn.classList.add('running');
+                fireBtn.textContent = 'يـتم الابلاغ.';
+                statusMsg.textContent = ' جاري الإبلاغ...';
+                statusMsg.className = 'status-msg running';
+
+                // إرسال دفعة فورية
+                sendBatch();
+
+                // ثم استمرار كل 700 مللي
+                intervalId = setInterval(sendBatch, 700);
+            }
+
+            function stopAutoSend() {
+                if (intervalId) {
+                    clearInterval(intervalId);
+                    intervalId = null;
+                }
+                isRunning = false;
+                fireBtn.classList.remove('running');
+                fireBtn.textContent = 'ضـرب بلاغـات ∅';
+                statusMsg.className = 'status-msg';
+                statusMsg.textContent = '⏸️ تم الإيقاف';
+            }
+
+            function toggleAutoSend() {
+                if (isRunning) {
+                    stopAutoSend();
+                } else {
+                    startAutoSend();
+                }
+            }
+
+            function resetStats() {
+                stopAutoSend();
+                sent = 0;
+                failed = 0;
+                total = 0;
+                updateStats();
+                statusMsg.textContent = '🔄 تم إعادة الضبط';
+                statusMsg.className = 'status-msg';
+                [sentCard, failedCard, totalCard].forEach(c => c.classList.remove('glowing'));
+                setTimeout(() => {
+                    statusMsg.className = 'status-msg';
+                    statusMsg.textContent = 'جاهز للإبلاغ';
+                }, 1000);
+            }
+
+            // عند الضغط على زر الإبلاغ
+            fireBtn.addEventListener('click', toggleAutoSend);
+
+            // Enter في حقل الرقم
+            phoneInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    if (!isRunning) startAutoSend();
+                }
+            });
+
+            // زر إعادة الضبط
+            resetBtn.addEventListener('click', resetStats);
+
+            // تحديث أولي
+            updateStats();
+            statusMsg.textContent = 'جاهز للإبلاغ';
+        })();
+    </script>
+
+</body>
+</html>
