@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تذييل هكر احترافي</title>
+    <!-- Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #0a0a0a;
+            background-image: radial-gradient(circle at 30% 30%, #1a0a0a 0%, #000000 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+
+        /* ==========================================
+           تذييل الصفحة (المربع الأحمر المتوهج مع الهولوجرام)
+           ========================================== */
+        .footer-box {
+            position: relative;
+            z-index: 20;
+            width: 100%;
+            max-width: 650px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            background: rgba(30, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 2px solid #ff2020;
+            border-radius: 50px;
+            padding: 20px 20px;
+            box-shadow: 0 0 60px #ff0000cc, inset 0 0 40px #ff000044;
+            animation: shakeGlow 2.5s infinite alternate;
+            overflow: hidden;
+        }
+
+        /* تأثير الاهتزاز والتوهج */
+        @keyframes shakeGlow {
+            0% { 
+                box-shadow: 0 0 40px #ff0000, inset 0 0 20px #ff0000; 
+                transform: translate(0, 0) rotate(0deg); 
+            }
+            25% { 
+                box-shadow: 0 0 70px #ff3300, inset 0 0 30px #ff4400; 
+                transform: translate(2px, -1px) rotate(0.5deg); 
+            }
+            50% { 
+                box-shadow: 0 0 90px #ff0000, inset 0 0 40px #ff0000; 
+                transform: translate(-2px, 2px) rotate(-0.5deg); 
+            }
+            75% { 
+                box-shadow: 0 0 60px #ff2200, inset 0 0 25px #ff2200; 
+                transform: translate(1px, 1px) rotate(0.2deg); 
+            }
+            100% { 
+                box-shadow: 0 0 40px #ff0000, inset 0 0 20px #ff0000; 
+                transform: translate(0, 0) rotate(0deg); 
+            }
+        }
+
+        /* تأثير التشويش والخلل على النص */
+        .glitch-text {
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-align: center;
+            text-shadow: 
+                0.05em 0 0 rgba(255, 0, 0, 0.75), 
+                -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), 
+                0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            animation: glitch 500ms infinite;
+            letter-spacing: 3px;
+            word-break: break-word;
+            position: relative;
+            z-index: 5;
+        }
+
+        @keyframes glitch {
+            0% { 
+                text-shadow: 
+                    0.05em 0 0 #ff0000, 
+                    -0.05em -0.025em 0 #00ff00, 
+                    0.025em 0.05em 0 #0000ff; 
+            }
+            14% { 
+                text-shadow: 
+                    0.05em 0 0 #ff0000, 
+                    -0.05em -0.025em 0 #00ff00, 
+                    0.025em 0.05em 0 #0000ff; 
+            }
+            15% { 
+                text-shadow: 
+                    -0.05em -0.025em 0 #ff0000, 
+                    0.025em 0.025em 0 #00ff00, 
+                    -0.05em -0.05em 0 #0000ff; 
+            }
+            49% { 
+                text-shadow: 
+                    -0.05em -0.025em 0 #ff0000, 
+                    0.025em 0.025em 0 #00ff00, 
+                    -0.05em -0.05em 0 #0000ff; 
+            }
+            50% { 
+                text-shadow: 
+                    0.025em 0.05em 0 #ff0000, 
+                    0.05em 0 0 #00ff00, 
+                    0 -0.05em 0 #0000ff; 
+            }
+            99% { 
+                text-shadow: 
+                    0.025em 0.05em 0 #ff0000, 
+                    0.05em 0 0 #00ff00, 
+                    0 -0.05em 0 #0000ff; 
+            }
+            100% { 
+                text-shadow: 
+                    -0.025em 0 0 #ff0000, 
+                    -0.025em -0.025em 0 #00ff00, 
+                    -0.025em -0.05em 0 #0000ff; 
+            }
+        }
+
+        /* أيقونات الهكر في التذييل */
+        .hacker-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 12px;
+            font-size: 2rem;
+            color: #ff5555;
+            filter: drop-shadow(0 0 15px red);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* زخرفة سفلى */
+        .hacked-badge {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            gap: 8px;
+        }
+
+        .hacked-badge span:first-child,
+        .hacked-badge span:last-child {
+            color: #ff0000;
+            text-shadow: 0 0 15px red;
+        }
+
+        .hacked-badge span:nth-child(2) {
+            color: #aa0000;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        /* وسائط للجوال */
+        @media (max-width: 500px) {
+            .glitch-text { 
+                font-size: 1rem; 
+                letter-spacing: 2px;
+            }
+            .hacker-icons {
+                font-size: 1.5rem;
+                gap: 15px;
+            }
+            .footer-box {
+                padding: 15px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================
+         تذييل الموقع (المربع الأحمر المتوهج)
+         يمكنك نسخ هذا الجزء فقط واستخدامه في أي مكان
+         ========================================== -->
+    <div class="footer-box">
+        <!-- أيقونات الهكر -->
+        <div class="hacker-icons">
+            <i class="fas fa-user-secret"></i>
+            <i class="fas fa-bug"></i>
+            <i class="fas fa-shield-hal"></i>
+            <i class="fas fa-terminal"></i>
+        </div>
+        
+        <!-- النص بتأثير التشويش والخلل -->
+        <div class="glitch-text">
+            جـمـيع الحـقـوق مـحـفـوظه لـدى الـهڪر 𝑾𝑯𝑰𝑺𝑲𝒀 𝑬𝑳𝒀𝑶𝑼𝑻𝑼𝑩𝑬𝑹
+        </div>
+        
+        <!-- زخرفة سفلى -->
+        <div class="hacked-badge">
+            <span>⬛</span>
+            <span>[ HACKED SYSTEM ]</span>
+            <span>⬛</span>
+        </div>
+    </div>
+
+    <!-- تأثير جسيمات اختياري (إذا أردت الخلفية كاملة) -->
+    <canvas id="particle-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
+    <script>
+        // جسيمات الخلفية (اختياري - للعرض الكامل)
+        (function() {
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+
+            function initParticles() {
+                const count = 80;
+                particles = [];
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        radius: Math.random() * 3 + 1,
+                        speedX: (Math.random() - 0.5) * 1.2,
+                        speedY: (Math.random() - 0.5) * 1.2,
+                        color: `rgba(255, ${Math.floor(50 + Math.random() * 100)}, 50, ${0.3 + Math.random() * 0.5})`
+                    });
+                }
+            }
+
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+                initParticles();
+            }
+
+            function drawParticles() {
+                ctx.clearRect(0, 0, width, height);
+                
+                ctx.strokeStyle = '#ff000022';
+                ctx.lineWidth = 0.8;
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx*dx + dy*dy);
+                        if (distance < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(255, 30, 30, ${0.15 * (1 - distance/120)})`;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.shadowColor = '#ff0000';
+                    ctx.shadowBlur = 15;
+                    ctx.fill();
+                    
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    
+                    if (p.x < 0 || p.x > width) p.speedX *= -1;
+                    if (p.y < 0 || p.y > height) p.speedY *= -1;
+                    
+                    p.x = Math.max(0, Math.min(width, p.x));
+                    p.y = Math.max(0, Math.min(height, p.y));
+                });
+                ctx.shadowBlur = 0;
+                
+                requestAnimationFrame(drawParticles);
+            }
+
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            drawParticles();
+        })();
+    </script>
+
+</body>
+</html>
